@@ -1,0 +1,202 @@
+<link rel="stylesheet" href="https://cdn.fluidplayer.com/v2/current/fluidplayer.min.css" type="text/css">
+<script src="https://cdn.fluidplayer.com/v2/current/fluidplayer.min.js"></script>
+
+<body>
+<h1 id="hud"></h1>
+<video id="vid" autoplay muted controls="" controlsList = "nodownload"loop="true" style="width: 1280px; height: 720px;">
+    <source src="%%url%%" type='video/mp4' />
+    <source data-fluid-hd src="%%url%%" title='720p' type='video/mp4' />
+    <source src="%%url%%" title='360p' type='video/mp4' />
+</video>
+
+</body>
+
+<script>
+    //Variable initiation 
+    var video = document.getElementById('vid');
+    var hud = document.getElementById('hud');
+    var firstClick = true;
+    
+    //Checks if PC or Mobile
+    var isMobile = false;
+    if( navigator.userAgent.match(/Android/i)
+    || navigator.userAgent.match(/webOS/i)
+    || navigator.userAgent.match(/iPhone/i)
+       || navigator.userAgent.match(/iPad/i)
+       || navigator.userAgent.match(/iPod/i)
+    || navigator.userAgent.match(/BlackBerry/i)
+    || navigator.userAgent.match(/Windows Phone/i)
+    ){
+        isMobile = true;
+    }
+    else {
+         isMobile = false;
+    }
+    
+    //Regarding first click
+    document.onmousedown = function() {mouseDown()};
+    function mouseDown()
+    {
+        if(firstClick)
+        {
+            video.muted = false;
+            video.play();
+        }   
+        firstClick = false;
+    }
+      
+    //Keyboard controls
+    var isFullScreen = 0;
+    document.onkeydown = function(event)
+    {   
+        switch(event.keyCode)
+        {
+            case 90:
+                video.muted = true;
+                break;
+            case 88:
+                video.muted = false;
+                break;
+            case 37:
+                event.preventDefault();
+                
+                currentTime = video.currentTime;
+                video.currentTime = currentTime - 5;
+                break;
+            case 65:
+                
+                currentTime = video.currentTime;
+                video.currentTime = currentTime - 5;
+                break;
+            case 39:
+                event.preventDefault();
+                
+                currentTime = video.currentTime;
+                video.currentTime = currentTime + 5;
+                break;
+            case 68:
+                
+                currentTime = video.currentTime;
+                video.currentTime = currentTime + 5;
+                break;
+            case 87:
+                
+                video.volume = video.volume + 0.05;
+                break;
+            case 83:
+                
+                video.volume = video.volume - 0.05;
+                break;
+            //case 70:
+                hud.innerHTML = "Change";
+                if(isFullScreen == 0)
+                {
+                    if (video.requestFullscreen) {
+                    video.requestFullscreen();
+                    } else if (video.mozRequestFullScreen) { /* Firefox */
+                    video.mozRequestFullScreen();
+                    } else if (video.webkitRequestFullscreen) { /* Chrome, Safari and Opera */
+                    video.webkitRequestFullscreen();
+                    } else if (video.msRequestFullscreen) { /* IE/Edge */
+                    video.msRequestFullscreen();}
+                    isFullScreen=1;
+                    break;
+                }
+                else
+                {
+                    if (video.exitFullscreen) {
+                   video.exitFullscreen();
+                    } else if (video.mozCancelFullScreen) { /* Firefox */
+                    video.mozCancelFullScreen();
+                    } else if (video.webkitExitFullscreen) { /* Chrome, Safari and Opera */
+                    video.webkitExitFullscreen();
+                    } else if (video.msExitFullscreen) { /* IE/Edge */
+                    video.msExitFullscreen();
+                    }
+                    isFullScreen=0;
+                    break;
+                }
+            case 32:
+                if(event.target == document.body)
+                    event.preventDefault();
+                /*if(video.paused)
+                {
+                    video.play();
+                }    
+                else
+                {
+                    video.pause();
+                }*/   
+                break;
+                
+            //case 120:
+                window.location.href = 'https://www.youtube.com/channel/UCAED0_tiXxj_zXUF7Sbo1yw/featured';
+                break;
+        }
+    }
+</script>
+ 
+
+<script type="text/javascript">
+    var firstClick2 = true;
+    var testVideo = fluidPlayer(
+        "vid",
+        {
+            vastOptions: {
+                "adList": [
+                    {
+                        "roll": "preRoll",
+                        "vastTag": "https://syndication.exosrv.com/splash.php?idzone=3610501",
+                        adText: 'SKIP AD NOW',
+                        adTextPosition: 'bottom left'
+                    },
+                    {
+                        "roll": "midRoll",
+                        "vastTag": "https://syndication.exosrv.com/splash.php?idzone=3610501",
+                        "timer": 20,
+                        adText: 'SKIP AD NOW',
+                        adTextPosition: 'bottom left'
+                    },
+                    {
+                        "roll": "midRoll",
+                        "vastTag": "https://syndication.exosrv.com/splash.php?idzone=3610501",
+                        "timer": 40,
+                        adText: 'SKIP AD NOW',
+                        adTextPosition: 'bottom left'
+                    },
+                    {
+                        "roll": "midRoll",
+                        "vastTag": "https://syndication.exosrv.com/splash.php?idzone=3610501",
+                        "timer": 60,
+                        adText: 'SKIP AD NOW',
+                        adTextPosition: 'bottom left'
+                    },
+                    {
+                        "roll": "postRoll",
+                        "vastTag": "https://syndication.exosrv.com/splash.php?idzone=3610501",
+                         adText: 'Advertising keeps us free',
+                        adTextPosition: 'bottom left'
+                    }
+            ]  
+        },
+            layoutControls: {
+            playbackRateEnabled: true,// Default false
+            primaryColor: "#ff0000",
+            fillToContainer: true,
+            htmlOnPauseBlock: {
+                html: '<b><input type="image" id="playButton" onclick="change2()" src="https://icon-library.net/images/x-button-icon/x-button-icon-4.jpg"/ style="width:5%;position: absolute; top: 30px; right: 30px;"><a href="http://gestyy.com/w6QtQn"><img src="https://marketingland.com/wp-content/ml-loads/2015/09/no-ads-blocker-ss-1920.jpg" style="width:100%;height:100%"></a></b>', 
+            }
+        }    
+}
+    );
+    testVideo.on('pause', function()
+    { 
+        if(firstClick2)
+        {
+            testVideo.play();
+            firstClick2 = false;
+        }
+    });
+
+
+</script>
